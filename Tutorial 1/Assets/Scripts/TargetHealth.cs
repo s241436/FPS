@@ -27,7 +27,11 @@ public class TargetHealth : MonoBehaviour
             gameManager.AddScore(points);
         }
         gameObject.SetActive(false);
-        gameObject.transform.parent.gameObject.SetActive(false);
+
+        if (gameObject.tag == "Moving_Target")
+        {
+            gameObject.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     //Public function that will be called by the bullet

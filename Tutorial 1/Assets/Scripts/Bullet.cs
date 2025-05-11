@@ -22,7 +22,8 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
 
-        if (objectWeHit.gameObject.CompareTag("Target"))
+
+        if (objectWeHit.gameObject.CompareTag("Target1"))
         {
             TargetHealth targetHit = null;
 
@@ -30,18 +31,6 @@ public class Bullet : MonoBehaviour
 
             // Damage the target
             targetHit.Damage(damageAmount);
-
-            // call bullet impact effect
-            CreateBulletImpacEffect(objectWeHit);
-
-            // destroy bullet
-            Destroy(gameObject);
-
-        }
-
-        if (objectWeHit.gameObject.CompareTag("Target1"))
-        {
-          
 
             // call bullet impact effect
             CreateBulletImpacEffect(objectWeHit);

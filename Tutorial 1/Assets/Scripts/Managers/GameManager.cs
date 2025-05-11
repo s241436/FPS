@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
 
     public TargetHealth[] targets;
+    public GameObject targetsParent;
+
     public GameObject player;
     public Camera worldCamera;
 
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        targets = targetsParent.GetComponentsInChildren<TargetHealth>();
+
         Cursor.lockState = CursorLockMode.Confined;
 
         player.SetActive(false);
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
         {
             targets[i].GameManager = this;
             targets[i].gameObject.SetActive(false);
+
 
         }
         startTimer = startTimerAmount;
@@ -65,7 +70,7 @@ public class GameManager : MonoBehaviour
         highScoresButton.gameObject.SetActive(true);
         crosshair.gameObject.SetActive(false);
 
-
+        
 
     }
 
@@ -165,6 +170,7 @@ public class GameManager : MonoBehaviour
     {
         int randomIndex = Random.Range(0, targets.Length);
         targets[randomIndex].gameObject.SetActive(true);
+        
     }
 
     public void AddScore(int points)

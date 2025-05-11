@@ -8,6 +8,7 @@ TagManager:
   - Target
   - wall
   - Target1
+  - Moving_Target
   layers:
   - Default
   - TransparentFX

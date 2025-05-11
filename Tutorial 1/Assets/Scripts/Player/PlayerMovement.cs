@@ -29,13 +29,20 @@ public class PlayerMovement : MonoBehaviour
     public float zoomFieldOfView;
     public float zoomSpeed;
 
-    private Camera firstPersonCam;
+    //Camera
+    float xRotation = 0f;
+    float yRotation = 0f;
+
+    public float topClamp = -90f;
+    public float bottomClamp = 90f;
+
+    public Camera firstPersonCam;
     private CharacterController characterController;
 
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        firstPersonCam = GetComponentInChildren<Camera>();
+        
         //Cursor.lockState = CursorLockMode.Locked;
 
     }
@@ -54,16 +61,39 @@ public class PlayerMovement : MonoBehaviour
 
     void CameraMovement()
     {
-        //Rotate the player around
+        // Getting the mous inputs
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        // Rotation around the x axis (look up and down)
+        xRotation -= mouseY;
+
+        // Clamp the rotation 
+        xRotation = Mathf.Clamp(xRotation, topClamp, bottomClamp);
+
+        // Rotation 
+        yRotation += mouseX;
+
+        // Apply rotations to our transform
+        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
+
+       /* //Rotate the player around
         float rotateYaw = Input.GetAxis("Mouse X") * mouseSensitivity;
-        transform.Rotate(0, rotateYaw, 0);
+        //transform.Rotate(0, rotateYaw, 0);
 
         //Rotate the camera up and down
         rotateCameraPitch += -Input.GetAxis("Mouse Y") * mouseSensitivity;
+       
+        
         //Lock the rotation so we cannot flip the camera. 
         rotateCameraPitch = Mathf.Clamp(rotateCameraPitch, -pitchRange, pitchRange);
         firstPersonCam.transform.localRotation = Quaternion.Euler(rotateCameraPitch, 0, 0);
+*/
 
+        
+
+        
         //Zoom the camera
         Zoom();
     }
